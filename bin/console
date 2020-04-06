@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Run this script to gen an IRB shell with the gem pre-loaded.
+
+require 'bundler/setup'
+require 'bluez-api'
+
+require 'irb'
+IRB.start(__FILE__)
