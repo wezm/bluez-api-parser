@@ -9,6 +9,7 @@ require 'bluez-api/parameter'
 require 'bluez-api/properties'
 require 'bluez-api/property'
 require 'bluez-api/version'
+require 'bluez-api/xml'
 
 module BluezApi
 end
