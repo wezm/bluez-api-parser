@@ -27,7 +27,7 @@ module BluezApi
         @state = State::PROPERTIES
       elsif @state != State::COMMENT && !line.empty? && !line.start_with?("\t")
         # If we do not parse comment, but line starts with characters, we are done.
-        false
+        return false
       end
 
       case @state
