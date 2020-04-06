@@ -19,5 +19,9 @@ module BluezApi
       @type = type
       @name = name
     end
+
+    def ==(other)
+      type == other.type && name == other.name
+    end
   end
 end
