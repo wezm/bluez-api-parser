@@ -1,6 +1,6 @@
 # bluez-api
 
-Gem and tool for generating [D-Bus] introspection XML from the [BlueZ] API
+Gem and tool for generating [D-Bus introspection XML] from the [BlueZ] API
 documentation.
 
 ## Rationale
@@ -68,3 +68,4 @@ derived from it
 [BlueZ]: http://www.bluez.org/
 [bluez-qt]: https://github.com/KDE/bluez-qt
 [bluezapi2qt]: https://github.com/KDE/bluez-qt/tree/408bdaa752faa8afcf55499b164d89aa6af8aa0c/tools/bluezapi2qt
+[D-Bus introspection XML]: https://dbus.freedesktop.org/doc/dbus-specification.html#introspection-format
