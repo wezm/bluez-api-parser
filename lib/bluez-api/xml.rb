@@ -6,6 +6,7 @@ require_relative 'xml/config'
 require_relative 'xml/generator'
 require_relative 'xml/interface'
 require_relative 'xml/method'
+require_relative 'xml/node'
 require_relative 'xml/property'
 
 module BluezApi
