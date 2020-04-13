@@ -99,4 +99,17 @@ describe BluezApi::Methods do
     ]
     _(method.tags).must_equal BluezApi::Method::Tags.new(true, false, false)
   end
+
+  it 'parses a method that returns an array of structs' do
+    methods = with_line("\t\tarray{objects, properties} ListItems(dict filter)")
+    _(methods.size).must_equal 1
+    method = methods.first
+
+    _(method.name).must_equal 'ListItems'
+    out_parameter = BluezApi::Parameter.new('array{objects, properties}', 'ListItems')
+    _(method.out_parameter).must_equal out_parameter
+    _(method.out_parameters).must_equal [out_parameter]
+    _(method.in_parameters).must_equal [BluezApi::Parameter.new('dict', 'filter')]
+    _(method.tags).must_equal BluezApi::Method::Tags.new(false, false, false)
+  end
 end

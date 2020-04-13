@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'strscan'
+
 module BluezApi
   class Method
     Tags = Struct.new(:optional, :deprecated, :experimental)
@@ -21,7 +23,19 @@ module BluezApi
 
     def out_parameter_strings=(match)
       # TODO: Can Parameter.from_string be used here instead of in finalize
-      @out_parameter_strings = (match || '').downcase.split(', ')
+      # Needs to handle values like 'int, string' and 'array{objects, properties}'
+      out = []
+      s = StringScanner.new((match || '').downcase)
+      until s.eos?
+        type = s.scan(/[^, {]*/)
+        type << s.scan_until(/\}/) if s.peek(1) == '{'
+        out << type
+
+        # Skip over sep
+        s.skip(/[, ]+/)
+      end
+
+      @out_parameter_strings = out
     end
 
     def in_parameter_strings=(match)
@@ -62,15 +76,13 @@ module BluezApi
       # Guess out parameter name from method name
       param_name = guess_out_parameter_name
       if !param_name.empty?
-        @out_parameter_strings.first << " #{param_name}"
-        @out_parameter = Parameter.from_string(@out_parameter_strings.first)
+        @out_parameter = Parameter.new(@out_parameter_strings.first, param_name)
+        @out_parameters << @out_parameter
       else
         @out_parameter_strings.each_with_index do |string, i|
-          string << " value#{i}"
+          @out_parameters << Parameter.new(string, "value#{i}")
         end
       end
-
-      @out_parameters = @out_parameter_strings.map { |s| Parameter.from_string(s) }
 
       success
     end
