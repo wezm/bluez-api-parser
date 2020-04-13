@@ -8,7 +8,12 @@ module BluezApi
 
     def self.from_string(string)
       arg = string.split(' ')
-      if arg.size != 2
+
+      if arg == ['fd']
+        # profile-api has fd argument without type
+        warn "treating argument named 'fd' with no type as file descriptor."
+        arg = %w[fd fd]
+      elsif arg.size != 2
         raise InvalidParameter, "Unable to determine parameter from #{string.inspect}"
       end
 
