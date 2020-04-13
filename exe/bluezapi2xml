@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bluez-api'
+require 'bluez-api/cli'
+
+if File.file?('Gemfile') && !defined?(Bundler)
+  warn 'A Gemfile was detected, but Bundler is not loaded.'
+  warn 'To run bluezapi2xml with Bundler, use `bundle exec bluezapi2xml`.'
+end
+
+BluezApi::CLI.new(ARGV).run
